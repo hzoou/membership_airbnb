@@ -1,0 +1,25 @@
+{
+  "name": "membership-airbnb",
+  "version": "1.0.0",
+  "description": "2019 BoostCamp Membership Mission 4",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm-run-all --parallel start:**",
+    "start:client": "cd client && yarn start",
+    "start:server": "cd server && npm start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hzoou/membership-airbnb.git"
+  },
+  "author": "hzoou (Woo hyeju)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hzoou/membership-airbnb/issues"
+  },
+  "homepage": "https://github.com/hzoou/membership-airbnb#readme",
+  "dependencies": {
+    "npm-run-all": "^4.1.5"
+  }
+}
