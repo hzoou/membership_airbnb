@@ -1,9 +1,9 @@
 'use strict';
-const data = require('../data/room');
+const roomData = require('../dummy/room');
 
 module.exports = {
   up: (queryInterface) => {
-      return queryInterface.bulkInsert('ROOM', data);
+      return queryInterface.bulkInsert('ROOM', roomData);
   },
 
   down: (queryInterface) => {
