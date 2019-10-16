@@ -1,8 +1,8 @@
 module.exports = (sequelize, DataTypes) => {
   const USER = sequelize.define('USER', {
-    email: { type: DataTypes.STRING(60), allowNull: false, unique: true },
-    name: { type: DataTypes.STRING(40), allowNull: false },
-    image: { type: DataTypes.TEXT, allowNull: false },
+    google_id: { type: DataTypes.STRING(150), unique: true },
+    name: { type: DataTypes.STRING(40) },
+    image: { type: DataTypes.TEXT },
   }, {
     timestamps: false,
     freezeTableName: true
