@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/');
+const { reserveRoom } = require('../middlewares/reservation');
+
+router.post('/', reserveRoom);
 
 module.exports = router;

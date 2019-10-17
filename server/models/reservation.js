@@ -38,5 +38,14 @@ module.exports = (sequelize, Sequelize) => {
         })
     };
 
+    RESERVATION.reserveRoom = (uid, rid, checkin, checkout) => {
+        return RESERVATION.create({
+            uid,
+            rid,
+            checkin,
+            checkout
+        })
+    };
+
     return RESERVATION;
 };
