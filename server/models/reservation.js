@@ -47,5 +47,16 @@ module.exports = (sequelize, Sequelize) => {
         })
     };
 
+    RESERVATION.cancelRoom = (uid, rid, checkin, checkout) => {
+        return RESERVATION.destroy({
+            where: {
+                uid,
+                rid,
+                checkin,
+                checkout
+            }
+        })
+    };
+
     return RESERVATION;
 };
