@@ -15,17 +15,12 @@ passport.use(
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         callbackURL: '/api/login/complete'
-    }, (accessToken, refreshToken, profile, done) => {
-        const user = profile._json;
-        USER.findOrCreate({
-            where: { google_id: user.sub, email: user.email, name: user.name, image: user.picture },
-            raw : true
-        }).then((user) => {
-            return done(null, user);
-        }).catch(function (err) {
-            console.log('err: ', err);
-            return done(err);
-        });
+    }, async (accessToken, refreshToken, profile, done) => {
+        const userInfo = profile._json;
+        let [ user, created ] = await USER.login(userInfo);
+        if (created) user = user.get({ plain: true});
+        if (user) return done(null, user);
+        return done(null, false);
     })
 );
 

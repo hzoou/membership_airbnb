@@ -22,5 +22,13 @@ module.exports = (sequelize, DataTypes) => {
         timestamps: false,
         freezeTableName: true
     });
+
+    USER.login = (user) => {
+        return USER.findOrCreate({
+            where: {google_id: user.sub, email: user.email, name: user.name, image: user.picture},
+            raw: true
+        });
+    };
+
     return USER;
 };
