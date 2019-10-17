@@ -1,11 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const { loginAuth, loginCompleteAuth } = require('../middlewares/authenticate');
-const { loginComplete } = require('../middlewares/user');
+const loginRouter = require('./login');
 
-router.get('/login', loginAuth);
-
-router.get('/login/complete', loginCompleteAuth, loginComplete);
+router.use('/login', loginRouter);
 
 module.exports = router;
