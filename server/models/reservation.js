@@ -10,11 +10,11 @@ module.exports = (sequelize, Sequelize) => {
             type: DataTypes.INTEGER,
             allowNull: false
         },
-        start_date: {
+        checkin: {
             type: DataTypes.INTEGER,
             allowNull: false
         },
-        end_date: {
+        checkout: {
             type: DataTypes.INTEGER,
             allowNull: false
         },
@@ -27,10 +27,10 @@ module.exports = (sequelize, Sequelize) => {
         return RESERVATION.findAll({
             attributes: ['rid'],
             where: {
-                end_date: {
+                checkout: {
                     [Op.gt]: checkin
                 },
-                start_date: {
+                checkin: {
                     [Op.lt]: checkout
                 }
             },
