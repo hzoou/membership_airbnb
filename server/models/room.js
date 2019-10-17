@@ -1,4 +1,6 @@
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize, Sequelize) => {
+    const { DataTypes } = Sequelize;
+
     const ROOM = sequelize.define('ROOM', {
         uid: {
             type: DataTypes.INTEGER,
@@ -43,6 +45,12 @@ module.exports = (sequelize, DataTypes) => {
         timestamps: false,
         freezeTableName: true
     });
+
+    ROOM.getAllRooms = () => {
+        return ROOM.findAll({
+            raw: true
+        });
+    };
 
     return ROOM;
 };
