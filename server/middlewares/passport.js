@@ -14,9 +14,13 @@ passport.use(
     new GoogleStrategy({
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: '/api/login/redirect'
+        callbackURL: '/api/login/complete'
     }, (accessToken, refreshToken, profile, done) => {
-        USER.findOrCreate({where: {google_id: profile.id, name: profile.displayName, image: profile.photos[0].value }}).then((user) => {
+        const user = profile._json;
+        USER.findOrCreate({
+            where: { google_id: user.sub, email: user.email, name: user.name, image: user.picture },
+            raw : true
+        }).then((user) => {
             return done(null, user);
         }).catch(function (err) {
             console.log('err: ', err);
