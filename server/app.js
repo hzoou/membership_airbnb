@@ -4,7 +4,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
 
-const apiRouter = require('./routes/api');
+const indexRouter = require('./routes');
 
 const passport = require('./middlewares/passport');
 
@@ -19,6 +19,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(passport.initialize());
 
-app.use('/api', apiRouter);
+app.use('/api', indexRouter);
 
 module.exports = app;
