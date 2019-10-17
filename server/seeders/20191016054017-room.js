@@ -1,5 +1,5 @@
 'use strict';
-const roomData = require('../dummy/room');
+const roomData = require('../dummy/room-data');
 
 module.exports = {
   up: (queryInterface) => {
