@@ -2,7 +2,7 @@ module.exports = (sequelize, Sequelize) => {
     const { Op, DataTypes } = Sequelize;
 
     const ROOM = sequelize.define('ROOM', {
-        uid: {
+        user_id: {
             type: DataTypes.INTEGER,
         },
         type: {
@@ -62,62 +62,27 @@ module.exports = (sequelize, Sequelize) => {
 
     ROOM.parseOptions = async (options) => {
         const where = {};
-        const { bed, bedroom, bathroom, guest, price_min, price_max, type, checkin, checkout } = options;
-        if (bed) where.bed = ROOM.parseBed(bed);
-        if (bedroom) where.bedroom = ROOM.parseBedRoom(bedroom);
-        if (bathroom) where.bathroom = ROOM.parseBathRoom(bathroom);
-        if (guest) where.guest = ROOM.parseGuest(guest);
-        if (price_min && price_max) where.price = ROOM.parsePrice(price_min, price_max);
-        if (type) where.type = ROOM.parseType(type);
-        if (checkin && checkout) where.id = await ROOM.parseDate(Number(checkin), Number(checkout));
+        const { bed, bedroom, bathroom, guest, price_min, price_max, type, title, checkin, checkout } = options;
+        if (bed) where.bed = ROOM.parseOption('gte', bed);
+        if (bedroom) where.bedroom = ROOM.parseOption('gte', bedroom);
+        if (bathroom) where.bathroom = ROOM.parseOption('gte', bathroom);
+        if (guest) where.guest = ROOM.parseOption('gte', guest);
+        if (price_min && price_max) where.price = ROOM.parseOption('between', [price_min, price_max]);
+        if (type) where.type = ROOM.parseOption('like', `%${type}%`);
+        if (title) where.title = ROOM.parseOption('like', `%${title}%`);
+        if (checkin && checkout) where.id = await ROOM.parseOption('notIn', await ROOM.getReservedRoom(Number(checkin), Number(checkout)));
         return where;
     };
 
-    ROOM.parseBed = (bed) => {
+    ROOM.parseOption = (condition, value) => {
         return {
-            [Op.gte]: bed
-        }
-    };
-
-    ROOM.parseBedRoom = (bedroom) => {
-        return {
-            [Op.gte]: bedroom
-        }
-    };
-
-    ROOM.parseBathRoom = (bathroom) => {
-        return {
-            [Op.gte]: bathroom
-        }
-    };
-
-    ROOM.parseGuest = (guest) => {
-        return {
-            [Op.gte]: guest
-        }
-    };
-
-    ROOM.parsePrice = (price_min, price_max) => {
-        return {
-            [Op.between]: [price_min, price_max]
-        }
-    };
-
-    ROOM.parseType = (type) => {
-        return {
-            [Op.like]: `%${type}%`
-        }
-    };
-
-    ROOM.parseDate = async (checkin, checkout) => {
-        return {
-            [Op.notIn]: await ROOM.getReservedRoom(checkin, checkout)
+            [Op[`${condition}`]]: value
         }
     };
 
     ROOM.getReservedRoom = async (checkin, checkout) => {
         const RESERVATION = require('../models').RESERVATION;
-        const reservedRoomIds = Object.values(await RESERVATION.getReservedRoom(checkin, checkout)).reduce((acc, v) => [...acc, v.rid], []);
+        const reservedRoomIds = Object.values(await RESERVATION.getReservedRoom(checkin, checkout)).reduce((acc, v) => [...acc, v.room_id], []);
         return reservedRoomIds;
     };
 
