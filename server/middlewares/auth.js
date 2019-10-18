@@ -16,7 +16,7 @@ const checkToken = async (req, res, next) => {
         req.user = user;
         next();
     } catch (e) {
-        res.send({ msg: 'Invalid Token!! '});
+        res.send({ status: 'FAIL', message: '유효한 토큰이 존재하지 않습니다.' });
     }
 };
 
