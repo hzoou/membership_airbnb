@@ -12,7 +12,50 @@
   </a>
 </p>
 
-> 2019 BoostCamp Membership Mission 4
+### 2019 BoostCamp Membership Mission 4
+#### server directory structure
+  ```
+  server
+  ├── 📂 bin
+  |   └── 📄 www
+  ├── 📂 config
+  |   └── 📄 config.js
+  ├── 📂 dummy
+  |   └── 📄 room-data.js
+  ├── 📂 middlewares
+  |   └── 📄 auth.js
+  |   └── 📄 passport.js
+  |   └── 📄 reservation.js
+  |   └── 📄 room.js
+  |   └── 📄 user.js
+  ├── 📂 models
+  |   └── 📄 index.js
+  |   └── 📄 reservation.js
+  |   └── 📄 room.js
+  |   └── 📄 user.js
+  ├── 📂 routes
+  |   └── 📄 index.js
+  |   └── 📄 login.js
+  |   └── 📄 logout.js
+  |   └── 📄 reservation.js
+  |   └── 📄 room.js
+  ├── 📂 seeders
+  |   └── 📄 20191016054017-room.js
+  └── 📄 app.js
+  ```
+
+#### .env에서 사용하는 환경변수
+> DB_USERNAME=remote
+> DB_PASSWORD=boostcamp2019
+> DB_DATABASE=airbnb
+> DB_HOST=127.0.0.1
+> GOOGLE_CLIENT_ID=
+> GOOGLE_CLIENT_SECRET=
+> JWT_SECRET=
+
+#### API
+- [ROOM API](https://github.com/hzoou/membership-airbnb/wiki/ROOM-API)
+- [RESERVATION API](https://github.com/hzoou/membership-airbnb/wiki/RESERVATION-API)
 
 ### 🏠 [Homepage](https://github.com/hzoou/membership-airbnb#readme)
 
@@ -27,6 +70,14 @@ npm install
 
 ```sh
 npm start
+```
+
+## Version
+```shell script
+npm 6.9.0
+node 10.16.3
+mysql 8.0.17
+sequelize 5.19.6
 ```
 
 ## Author
