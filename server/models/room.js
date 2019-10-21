@@ -2,7 +2,7 @@ module.exports = (sequelize, Sequelize) => {
     const { Op, DataTypes } = Sequelize;
 
     const ROOM = sequelize.define('ROOM', {
-        user_id: {
+        userId: {
             type: DataTypes.INTEGER,
         },
         type: {
@@ -17,7 +17,7 @@ module.exports = (sequelize, Sequelize) => {
             type: DataTypes.DOUBLE,
             allowNull: false
         },
-        thumbnail: {
+        thumbnail: { // url 또는 base64
             type: DataTypes.TEXT,
             allowNull: false
         },
@@ -46,6 +46,9 @@ module.exports = (sequelize, Sequelize) => {
         freezeTableName: true
     });
 
+    // transaction
+    // complex
+    // 간단한 것은 그냥 놔두는 것이 좋을 수도 있음
     ROOM.getAllRooms = () => {
         return ROOM.findAll({
             raw: true
@@ -70,7 +73,7 @@ module.exports = (sequelize, Sequelize) => {
         if (price_min && price_max) where.price = ROOM.parseOption('between', [price_min, price_max]);
         if (type) where.type = ROOM.parseOption('like', `%${type}%`);
         if (title) where.title = ROOM.parseOption('like', `%${title}%`);
-        if (checkin && checkout) where.id = await ROOM.parseOption('notIn', await ROOM.getReservedRoom(Number(checkin), Number(checkout)));
+        if (checkin && checkout) where.id = await ROOM.parseOption('notIn', await ROOM.getReservedRoom(checkin, checkout));
         return where;
     };
 
@@ -82,7 +85,7 @@ module.exports = (sequelize, Sequelize) => {
 
     ROOM.getReservedRoom = async (checkin, checkout) => {
         const RESERVATION = require('../models').RESERVATION;
-        const reservedRoomIds = Object.values(await RESERVATION.getReservedRoom(checkin, checkout)).reduce((acc, v) => [...acc, v.room_id], []);
+        const reservedRoomIds = Object.values(await RESERVATION.getReservedRoom(checkin, checkout)).reduce((acc, v) => [...acc, v.roomId], []);
         return reservedRoomIds;
     };
 

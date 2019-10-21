@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
     const USER = sequelize.define('USER', {
-        google_id: {
+        googleId: {
             type: DataTypes.STRING(150),
             unique: true,
             allowNull: false
@@ -23,9 +23,10 @@ module.exports = (sequelize, DataTypes) => {
         freezeTableName: true
     });
 
+    // controller 와 model 중에 잘 구별해서 넣자.
     USER.login = (user) => {
         return USER.findOrCreate({
-            where: {google_id: user.sub, email: user.email, name: user.name, image: user.picture},
+            where: {googleId: user.sub, email: user.email, name: user.name, image: user.picture},
             raw: true
         });
     };

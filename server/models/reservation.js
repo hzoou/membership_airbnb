@@ -2,11 +2,11 @@ module.exports = (sequelize, Sequelize) => {
     const { Op, DataTypes } = Sequelize;
 
     const RESERVATION = sequelize.define('RESERVATION', {
-        user_id: {
+        userId: {
             type: DataTypes.INTEGER,
             allowNull: false
         },
-        room_id: {
+        roomId: {
             type: DataTypes.INTEGER,
             allowNull: false
         },
@@ -25,7 +25,7 @@ module.exports = (sequelize, Sequelize) => {
 
     RESERVATION.getReservedRoom = (checkin, checkout) => {
         return RESERVATION.findAll({
-            attributes: ['room_id'],
+            attributes: ['roomId'],
             where: {
                 checkout: {
                     [Op.gt]: checkin
@@ -38,20 +38,20 @@ module.exports = (sequelize, Sequelize) => {
         })
     };
 
-    RESERVATION.reserveRoom = (user_id, room_id, checkin, checkout) => {
+    RESERVATION.reserveRoom = (userId, roomId, checkin, checkout) => {
         return RESERVATION.create({
-            user_id,
-            room_id,
+            userId,
+            roomId,
             checkin,
             checkout
         })
     };
 
-    RESERVATION.cancelRoom = (user_id, room_id, checkin, checkout) => {
+    RESERVATION.cancelRoom = (userId, roomId, checkin, checkout) => {
         return RESERVATION.destroy({
             where: {
-                user_id,
-                room_id,
+                userId,
+                roomId,
                 checkin,
                 checkout
             }
