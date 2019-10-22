@@ -43,7 +43,7 @@ const NavItem = styled.div`
 const SearchIcon = styled.svg`
     width: 14px;
     height: 14px;
-    fill: #ababab;
+    fill: #6e6e6e;
     position: relative;
     top: 2px;
 `;
@@ -66,6 +66,11 @@ const SearchInput = styled.input`
     font-weight: 500;
     outline: none;
     padding-left: 15px;
+`;
+
+const Login = styled.a`
+    color: #484848;
+    text-decoration: none;
 `;
 
 const Header = () => {
@@ -91,7 +96,7 @@ const Header = () => {
                     <span>도움말</span>
                 </NavItem>
                 <NavItem>
-                    <span onClick={loginToGoogle}>로그인</span>
+                    <span><Login href="http://localhost:8080/api/login">로그인</Login></span>
                 </NavItem>
             </Nav>
         </HeaderDiv>
