@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from "./components/Header";
 import Filter from "./components/Filter";
+import Container from "./components/Container";
 import './App.css';
 
 const App = () => {
@@ -8,6 +9,7 @@ const App = () => {
     <div className="App">
         <Header />
         <Filter />
+        <Container />
     </div>
   );
 };
