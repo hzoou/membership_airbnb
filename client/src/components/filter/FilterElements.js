@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import styled from "styled-components";
 
 import FilterButton from "./FilterButton";
+import FilterPopup from "./FilterPopup";
+
+import DateFilter from "./popup/DateFilter";
 
 const FilterBar = styled.div`
     margin: auto 0 auto 10px;
@@ -14,7 +17,7 @@ export default () => {
     const setSelectedList = [];
 
     const filterList = [
-        { name: '날짜' },
+        { name: '날짜', popup: <DateFilter /> },
         { name: '인원' },
         { name: '숙소 유형' },
         { name: '가격' },
@@ -48,6 +51,7 @@ export default () => {
         return (
             <FilterBar key={index}>
                 <FilterButton isClicked={clicked} isSelected={selected} id={index} name={filter.name} onClick={setButtonClicked} />
+                <FilterPopup isClicked={clicked} popup={filter.popup} id={index} onClick={setPopupClicked} />
             </FilterBar>
         )
     });
