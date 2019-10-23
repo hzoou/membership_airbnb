@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-import { commaToNumber } from "../util/utils";
+import { commaToNumber } from "../../util/utils";
 
 const Card = styled.div`
     width: 800px;

@@ -15,7 +15,7 @@ const FilterDiv = styled.div`
     width: 100%;
     display: flex;
     position: fixed;
-    top: 86px;
+    top: 81px;
     z-index: 10;
     padding: 0 72px;
     background: white;
