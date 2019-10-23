@@ -1,10 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import DateFilter from "./filter/DateFilter";
-import GuestFilter from "./filter/GuestFilter";
-import TypeFilter from "./filter/TypeFilter";
-import PriceFilter from "./filter/PriceFilter";
-import EtcFilter from "./filter/EtcFilter";
+
+import FilterElements from "./filter/FilterElements";
 
 const FilterContainer = styled.div`
     height: 51px;
@@ -22,32 +19,12 @@ const FilterDiv = styled.div`
     border-bottom: 1px solid #e4e4e4;
 `;
 
-const FilterBar = styled.div`
-    margin: auto 0 auto 10px;
-`;
-
-const Filter = () => {
+export default () => {
     return (
         <FilterContainer>
             <FilterDiv>
-                <FilterBar>
-                    <DateFilter />
-                </FilterBar>
-                <FilterBar>
-                    <GuestFilter />
-                </FilterBar>
-                <FilterBar>
-                    <TypeFilter />
-                </FilterBar>
-                <FilterBar>
-                    <PriceFilter />
-                </FilterBar>
-                <FilterBar>
-                    <EtcFilter />
-                </FilterBar>
+                <FilterElements/>
             </FilterDiv>
         </FilterContainer>
     )
 };
-
-export default Filter;
