@@ -69,7 +69,7 @@ const Star = styled.svg`
     top: 1px;
 `;
 
-const RoomCard = () => {
+export default () => {
     const [ rooms, setRoomData ] = useState([]);
 
     const getAllRooms = () => {
@@ -111,5 +111,3 @@ const RoomCard = () => {
                 </Card>
     })}</div> )
 };
-
-export default RoomCard;

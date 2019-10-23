@@ -6,12 +6,10 @@ const ContainerDiv = styled.div`
     margin-left: 82px;
 `;
 
-const Container = () => {
+export default () => {
     return (
         <ContainerDiv>
             <RoomCard />
         </ContainerDiv>
     )
 };
-
-export default Container;
