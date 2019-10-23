@@ -82,6 +82,10 @@ const PriceInput = styled.input.attrs(() => ({
 const Dash = styled.span`
     height: fit-content;
     margin: auto 10px;
+    
+    &:after {
+        content: '-';
+    }
 `;
 
 export default () => {
@@ -117,7 +121,7 @@ export default () => {
                 <PriceInputDiv> ₩
                     <PriceInput value={minPrice} onChange={changeMinPrice} />
                 </PriceInputDiv>
-                <Dash>-</Dash>
+                <Dash />
                 <PriceInputDiv> ₩
                     <PriceInput value={maxPrice} onChange={changeMaxPrice} />
                 </PriceInputDiv>

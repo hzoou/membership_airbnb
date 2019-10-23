@@ -8,6 +8,7 @@ import DateFilter from "./popup/DateFilter";
 import GuestFilter from "./popup/GuestFilter";
 import TypeFilter from "./popup/TypeFilter";
 import PriceFilter from "./popup/PriceFilter";
+import OptionFilter from "./popup/OptionFilter";
 
 const FilterBar = styled.div`
     margin: auto 0 auto 10px;
@@ -24,7 +25,7 @@ export default () => {
         { name: '인원', popup: <GuestFilter /> },
         { name: '숙소 유형', popup: <TypeFilter /> },
         { name: '가격', popup: <PriceFilter /> },
-        { name: '필터 추가하기' },
+        { name: '필터 추가하기', popup: <OptionFilter /> },
     ];
 
     const setFilterSelected = (key) => {
