@@ -5,6 +5,7 @@ import FilterButton from "./FilterButton";
 import FilterPopup from "./FilterPopup";
 
 import DateFilter from "./popup/DateFilter";
+import GuestFilter from "./popup/GuestFilter";
 
 const FilterBar = styled.div`
     margin: auto 0 auto 10px;
@@ -18,7 +19,7 @@ export default () => {
 
     const filterList = [
         { name: '날짜', popup: <DateFilter /> },
-        { name: '인원' },
+        { name: '인원', popup: <GuestFilter /> },
         { name: '숙소 유형' },
         { name: '가격' },
         { name: '필터 추가하기' },
