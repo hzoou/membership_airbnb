@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from "styled-components";
 
-const Nav = styled.div`
+const Navigation = styled.div`
     height: 80px;
     display: flex;
     align-items: center;
@@ -27,9 +27,9 @@ const Login = styled.a`
     text-decoration: none;
 `;
 
-const Navigation = () => {
+export default () => {
     return (
-        <Nav>
+        <Navigation>
             <NavItem>
                 <span>호스트가 되어보세요</span>
             </NavItem>
@@ -39,8 +39,6 @@ const Navigation = () => {
             <NavItem>
                 <span><Login href="http://localhost:8080/api/login">로그인</Login></span>
             </NavItem>
-        </Nav>
+        </Navigation>
     )
 };
-
-export default Navigation;

@@ -27,18 +27,17 @@ const Logo = styled.img`
     padding: 24px;
     width: 34px;
     height: 34px;
+    cursor: pointer;
 `;
 
-const Header = () => {
+export default () => {
     return (
         <HeaderContainer>
             <HeaderDiv>
-                <Logo src={logo} />
+                <Logo src={logo} onClick={() => { window.location.reload() }}/>
                 <SearchBar />
                 <Navigation />
             </HeaderDiv>
         </HeaderContainer>
     );
 };
-
-export default Header;
