@@ -18,7 +18,7 @@ const PopupButton = styled.div`
     display: flex;
     border-top: 1px solid #CCCCCC;
     padding-top: 20px;
-    margin-top: 10px;
+    margin-top: 20px;
 `;
 
 const Cancel = styled.div`
@@ -32,7 +32,6 @@ const Save = styled.div`
 `;
 
 export default (props) => {
-
     const clickCancel = () => {
         props.onClick(false, props.id);
     };
