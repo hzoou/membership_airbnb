@@ -38,7 +38,7 @@ export default (props) => {
 
     return ( !props.isClicked ? <></> :
         <PopUp>
-            {props.popup ? props.popup : '' }
+            {props.popup}
             <PopupButton>
                 <Cancel onClick={clickCancel}>취소</Cancel>
                 <Save>저장</Save>
