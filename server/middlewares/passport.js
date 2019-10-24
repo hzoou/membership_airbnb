@@ -18,7 +18,7 @@ passport.use(
     }, async (accessToken, refreshToken, profile, done) => {
         const userInfo = profile._json;
         let [ user, created ] = await USER.login(userInfo);
-        if (created) user = user.get({ plain: true});
+        if (created) user = user.get({ plain: true });
         if (user) return done(null, user);
         return done(null, false);
     })

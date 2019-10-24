@@ -10,12 +10,13 @@ const getGoogleProfile = (req, res, next) => {
 };
 
 const checkToken = async (req, res, next) => {
-    const token = req.cookies.jwt;
+    const token = req.body.token;
     try {
         const user = await jwt.verify(token, process.env.JWT_SECRET);
         req.user = user;
         next();
     } catch (e) {
+        console.log(e);
         res.send({ status: 'FAIL', message: '유효한 토큰이 존재하지 않습니다.' });
     }
 };
