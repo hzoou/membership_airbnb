@@ -21,27 +21,32 @@ const PopupButton = styled.div`
     margin-top: 20px;
 `;
 
-const Cancel = styled.div`
+const Remove = styled.div`
     cursor: pointer;  
 `;
 
 const Save = styled.div`
     margin-left: auto;
+    font-weight: 700;
     color: #398387;
     cursor: pointer;  
 `;
 
 export default (props) => {
-    const clickCancel = () => {
-        props.onClick(false, props.id);
+    const removeState = () => {
+
+    };
+
+    const saveState = () => {
+
     };
 
     return ( !props.isClicked ? <></> :
         <PopUp>
             {props.popup}
             <PopupButton>
-                <Cancel onClick={clickCancel}>취소</Cancel>
-                <Save>저장</Save>
+                <Remove onClick={removeState}>지우기</Remove>
+                <Save onClick={saveState}>저장</Save>
             </PopupButton>
         </PopUp>
     )

@@ -71,7 +71,7 @@ const PriceInputDiv = styled.div`
 `;
 
 const PriceInput = styled.input.attrs(() => ({
-    type: "text",
+    type: "number",
 }))`
     width: 93px;
     margin-left: 10px;
@@ -114,7 +114,6 @@ export default () => {
                 min={10000}
                 max={300000}
                 defaultValue={[ minPrice, maxPrice ]}
-                value={[ minPrice, maxPrice ]}
                 getAriaValueText={getPriceValue}
             />
             <PriceInputContainer>

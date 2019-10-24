@@ -42,7 +42,8 @@ export default () => {
             const [ key, value ] = cookie.trim().split('=');
             if (key === 'jwt') {
                 try {
-                    const res = await fetch('http://localhost:8080/api/user', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ token: value }) });
+                    const init = { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ token: value }) };
+                    const res = await fetch('/api/user', init);
                     const result = await res.json();
                     setUser(result.data);
                 } catch (e) {
@@ -74,9 +75,9 @@ export default () => {
             <NavItem>
                 <span>도움말</span>
             </NavItem>
-    {user ? <Profile src="https://lh3.googleusercontent.com/a-/AAuE7mD0kzR2EMXnwtDB3EO9riv9ilRbWvufCrXg4eTk" onClick={clickProfile}/> :
+    {user ? <Profile src={user.image} onClick={clickProfile}/> :
             <NavItem>
-                <span><Login href="http://localhost:8080/api/login">로그인</Login></span>
+                <span><Login href="/api/login">로그인</Login></span>
             </NavItem>}
             <NavItem>
             </NavItem>
