@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
 
-import { $$ } from '../../../util/utils';
-
 const Title = styled.div`
     font-size: 14px;
     font-weight: 600;
@@ -13,7 +11,7 @@ const Title = styled.div`
     }
 `;
 
-const MenuList = styled.div`
+const Option = styled.div`
     display: flex;
     margin-bottom: 20px;
 `;
@@ -51,9 +49,11 @@ const Value = styled.div`
     text-align: center;
 `;
 
-export default () => {
-    const valueList = [];
-    const setValueList = [];
+export default ({ state, setState }) => {
+    const [ bed, setBed ] = useState(state.bed);
+    const [ bedroom, setBedroom ] = useState(state.bedroom);
+    const [ bathroom, setBathroom ] = useState(state.bathroom);
+
 
     const optionsList = [
         { id: 'bed', name: '침대 수' },
@@ -62,38 +62,56 @@ export default () => {
     ];
 
     const IsValueUnderZero = () => {
-        const buttons = $$('.minus');
-        valueList.forEach((value, i) => {
-            if (value <= 0) buttons[i].setAttribute('disabled', true);
+        const buttons = document.querySelectorAll('.minus');
+        const options = document.querySelectorAll('.option');
+        options.forEach((option, i) => {
+            if (option.textContent <= 0) buttons[i].setAttribute('disabled', true);
             else buttons[i].removeAttribute('disabled');
         });
     };
 
-    const onChangePlusValue = (i) => {
-        return setValueList[i](valueList[i] + 1);
+    const onChangePlusValue = (index) => {
+        if (!index) return setBed(bed + 1);
+        if (index === 1) return setBedroom(bedroom + 1);
+        return setBathroom(bathroom + 1);
     };
 
-    const onChangeMinusValue = (i) => {
-        return setValueList[i](valueList[i] - 1);
+    const onChangeMinusValue = (index) => {
+        if (!index) return setBed(bed - 1);
+        if (index === 1) return setBedroom(bedroom - 1);
+        return  setBathroom(bathroom - 1);
+    };
+
+    const onChangeOptionValue = () => {
+        setState({ bed, bedroom, bathroom })
+    };
+
+    const initState = () => {
+        setBed(state.bed);
+        setBedroom(state.bedroom);
+        setBathroom(state.bathroom);
+    };
+
+    const getOptionValue = (index) => {
+        if (!index) return bed;
+        if (index === 1) return bedroom;
+        return bathroom;
     };
 
     useEffect(IsValueUnderZero);
+    useEffect(onChangeOptionValue, [ bed, bedroom, bathroom ]);
+    useEffect(initState, [ state ]);
 
     const optionFilter = optionsList.map((option, index) => {
-        const [ value, setValue ] = useState(0);
-
-        valueList.push(value);
-        setValueList.push(setValue);
-
         return (
-            <MenuList key={index}>
+            <Option key={index}>
                 <Key>{option.name}</Key>
                 <ButtonDiv>
                     <Button className="minus" onClick={() => onChangeMinusValue(index)}>-</Button>
-                    <Value><span>{value}</span>+</Value>
+                    <Value><span className="option" id={option.id}>{getOptionValue(index)}</span>+</Value>
                     <Button onClick={() => onChangePlusValue(index)}>+</Button>
                 </ButtonDiv>
-            </MenuList>
+            </Option>
         )
     });
 
