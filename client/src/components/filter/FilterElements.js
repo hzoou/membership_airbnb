@@ -15,47 +15,30 @@ const FilterBar = styled.div`
 `;
 
 export default () => {
-    const clickedList = [];
-    const setClickedList = [];
-    const selectedList = [];
-    const setSelectedList = [];
+    const [ clickedIndex, setClickedIndex ] = useState(-1);
+    const [ date, setDate ] = useState({ startDate: null, endDate: null });
+    const [ guest, setGuest ] = useState({ adult: 0, child: 0 });
+    const [ type, setType ] = useState({ 0: false, 1: false, 2: false, 3: false });
+    const [ price, setPrice ] = useState({ minPrice: 10000, maxPrice: 300000 });
+    const [ option, setOption ] = useState({ bed: 0, bedroom: 0, bathroom: 0 });
 
-    const filterList = [
-        { name: '날짜', popup: <DateFilter /> },
-        { name: '인원', popup: <GuestFilter /> },
-        { name: '숙소 유형', popup: <TypeFilter /> },
-        { name: '가격', popup: <PriceFilter /> },
-        { name: '필터 추가하기', popup: <OptionFilter /> },
-    ];
-
-    const setFilterSelected = (key) => {
-        return setSelectedList[key](!selectedList[key]);
+    const filterList = {
+        date: { Popup: DateFilter, state: date, setState: setDate },
+        guest: { Popup: GuestFilter, state: guest, setState: setGuest },
+        type: { Popup: TypeFilter, state: type, setState: setType },
+        price: { Popup: PriceFilter, state: price, setState: setPrice },
+        others: { Popup: OptionFilter, state: option, setState: setOption }
     };
 
-    const setButtonClicked = (key) => {
-        setClickedList.forEach((setClicked, i) => {
-            if (key === i) setClicked(!clickedList[i]);
-            else setClicked(false);
-        });
+    const setClickedButton = (index) => {
+        setClickedIndex(clickedIndex === index ? -1 : index);
     };
 
-    const setPopupClicked = (bool, key) => {
-        if (!bool) setClickedList[key](false);
-    };
-
-    const filters = filterList.map((filter, index) => {
-        const [ clicked, setClicked ] = useState(false);
-        const [ selected, setSelected ] = useState(false);
-
-        clickedList.push(clicked);
-        setClickedList.push(setClicked);
-        selectedList.push(selected);
-        setSelectedList.push(setSelected);
-
+    const filters = Object.values(filterList).map((filter, index) => {
         return (
             <FilterBar key={index}>
-                <FilterButton isClicked={clicked} isSelected={selected} id={index} name={filter.name} onClick={setButtonClicked} />
-                <FilterPopup isClicked={clicked} popup={filter.popup} id={index} onClick={setPopupClicked} />
+                <FilterButton state={filter.state} index={index} clickedIndex={clickedIndex} onClick={setClickedButton} />
+                <FilterPopup setClicked={setClickedIndex} state={filter.state} setState={filter.setState} index={index} clickedIndex={clickedIndex} Popup={filter.Popup} />
             </FilterBar>
         )
     });
