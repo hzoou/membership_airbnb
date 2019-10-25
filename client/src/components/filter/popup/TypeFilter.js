@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
 
 const CheckBoxContainer = styled.label`
@@ -38,6 +38,7 @@ const CheckMark = styled.span`
     left: 0;
     height: 20px;
     width: 20px;
+    border-radius: 3px;
     background-color: #eee;
     
     &:after {
@@ -54,10 +55,11 @@ const CheckMark = styled.span`
     }
 `;
 
-
-export default () => {
-    const valueList = [];
-    const setValueList = [];
+export default ({ state, setState }) => {
+    const [ allRoom, setAllRoom ] = useState(state[0]);
+    const [ privateRoom, setPrivateRoom ] = useState(state[1]);
+    const [ guestRoom, setGuestRoom ] = useState(state[2]);
+    const [ sharedRoom, setSharedRoom ] = useState(state[3]);
 
     const TypeList = [
         { name: '집 전체' },
@@ -66,15 +68,31 @@ export default () => {
         { name: '다인실' },
     ];
 
+    const clickCheckBox = (index) => {
+        if (!index) return setAllRoom(!allRoom);
+        if (index === 1) return setPrivateRoom(!privateRoom);
+        if (index === 2) return setGuestRoom(!guestRoom);
+        return setSharedRoom(!sharedRoom);
+    };
+
+    const onChangeState = () => {
+        setState({ 0: allRoom, 1: privateRoom, 2: guestRoom, 3: sharedRoom });
+    };
+
+    const initState = () => {
+        setAllRoom(state[0]);
+        setPrivateRoom(state[1]);
+        setGuestRoom(state[2]);
+        setSharedRoom(state[3]);
+    };
+
+    useEffect(onChangeState, [ allRoom, privateRoom, guestRoom, sharedRoom ]);
+    useEffect(initState, [ state ]);
+
     const typeFilter = TypeList.map((type, index) => {
-        const [ value, setValue ] = useState(0);
-
-        valueList.push(value);
-        setValueList.push(setValue);
-
         return (
             <CheckBoxContainer key={index}>{type.name}
-                <CheckBox type="checkbox" />
+                <CheckBox id={index} type="checkbox" checked={state[index]} onChange={() => clickCheckBox(index)} />
                 <CheckMark />
             </CheckBoxContainer>
         )
