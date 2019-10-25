@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from "styled-components";
 
-const PopUp = styled.div`
+const PopUpDiv = styled.div`
     position: absolute;
     top: 60px;
     height: fit-content;
@@ -32,22 +32,48 @@ const Save = styled.div`
     cursor: pointer;  
 `;
 
-export default (props) => {
-    const removeState = () => {
+export default ({ setClicked, state, setState, index, clickedIndex, Popup }) => {
+    const isClicked = () => clickedIndex === index;
 
+    const setInitDateState = () => {
+        setState({ checkIn: null, checkOut: null });
+    };
+
+    const setInitGuestState = () => {
+        setState({ adult: 0, child: 0 });
+    };
+
+    const setInitTypeState = () => {
+        setState({ 0: false, 1: false, 2: false, 3: false });
+    };
+
+    const setInitPriceState = () => {
+        setState({ minPrice: 10000, maxPrice: 300000 });
+    };
+
+    const setInitOptionState = () => {
+        setState({ bed: 0, bedroom: 0, bathroom: 0 });
+    };
+
+    const initState = () => {
+        if (!index) return setInitDateState();
+        if (index === 1) return setInitGuestState();
+        if (index === 2) return setInitTypeState();
+        if (index === 3) return setInitPriceState();
+        return setInitOptionState();
     };
 
     const saveState = () => {
-
+        setClicked(-1);
     };
 
-    return ( !props.isClicked ? <></> :
-        <PopUp>
-            {props.popup}
+    return ( !isClicked() ? <></> :
+        <PopUpDiv>
+            <Popup state={state} setState={setState} />
             <PopupButton>
-                <Remove onClick={removeState}>지우기</Remove>
+                <Remove onClick={initState}>지우기</Remove>
                 <Save onClick={saveState}>저장</Save>
             </PopupButton>
-        </PopUp>
+        </PopUpDiv>
     )
 };
