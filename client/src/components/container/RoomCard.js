@@ -3,6 +3,13 @@ import styled from 'styled-components';
 
 import Star from "./Star";
 
+const Counter = styled.div`
+    margin-top: 20px;
+    color: #484848;
+    font-weight: 800;
+    font-size: 24px;
+`;
+
 const Content = styled.div`
     width: fit-content;
     margin: auto;
@@ -93,20 +100,23 @@ export default () => {
     const isLoading = (rooms == null);
 
     const renderRoom = () => {
-        return ( isLoading ? <Content> 로딩 중입니다 😰 <br /> 조금만 기다려주세요 🙏🏻 </Content> : <div> {rooms.map((room) => {
-            return <Card key={room.id}>
-                <div>
-                    <Thumbnail src={room.thumbnail} />
-                </div>
-                <CardContent>
-                    <Type>{room.type}</Type>
-                    <Title>{room.title}</Title>
-                    <Option>인원 {room.guest}명 ・ 침대 {room.bed}개 ・ 침실 {room.bedroom}개 ・ 욕실 {room.bathroom}개</Option>
-                    <Price>₩{(room.price).toLocaleString()}/박</Price>
-                    <StarDiv><Star />{room.star}</StarDiv>
-                </CardContent>
-            </Card>
-        })} </div> )
+        return ( isLoading ? <Content> 로딩 중입니다 😰 <br /> 조금만 기다려주세요 🙏🏻 </Content> : <div>
+            <Counter>{rooms.length} 개의 숙소</Counter>
+                {rooms.map((room) => {
+                return <Card key={room.id}>
+                    <div>
+                        <Thumbnail src={room.thumbnail} />
+                    </div>
+                    <CardContent>
+                        <Type>{room.type}</Type>
+                        <Title>{room.title}</Title>
+                        <Option>인원 {room.guest}명 ・ 침대 {room.bed}개 ・ 침실 {room.bedroom}개 ・ 욕실 {room.bathroom}개</Option>
+                        <Price>₩{(room.price).toLocaleString()}/박</Price>
+                        <StarDiv><Star />{room.star}</StarDiv>
+                    </CardContent>
+                </Card>
+            })}
+        </div> )
     };
 
     return ( error ? <Content> 에러가 발생했습니다 😰 <br /> 잠시 후에 다시 이용해주세요 🙏🏻 <br /> <Error> Error : {error.message} </Error> </Content> : <> {renderRoom()} </> );
