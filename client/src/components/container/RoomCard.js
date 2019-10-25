@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import Star from "./Star";
-import { commaToNumber } from "../../util/utils";
 
 const Content = styled.div`
     width: fit-content;
@@ -103,7 +102,7 @@ export default () => {
                     <Type>{room.type}</Type>
                     <Title>{room.title}</Title>
                     <Option>인원 {room.guest}명 ・ 침대 {room.bed}개 ・ 침실 {room.bedroom}개 ・ 욕실 {room.bathroom}개</Option>
-                    <Price>₩{commaToNumber(room.price)}/박</Price>
+                    <Price>₩{(room.price).toLocaleString()}/박</Price>
                     <StarDiv><Star />{room.star}</StarDiv>
                 </CardContent>
             </Card>
