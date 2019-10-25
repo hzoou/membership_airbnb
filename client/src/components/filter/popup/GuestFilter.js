@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
 
-import { $$ } from '../../../util/utils';
-
-const MenuList = styled.div`
+const Guest = styled.div`
     display: flex;
     margin-bottom: 20px;
 `;
@@ -41,53 +39,62 @@ const Value = styled.div`
     text-align: center;
 `;
 
-export default () => {
-    const valueList = [];
-    const setValueList = [];
+export default ({ state, setState }) => {
+    const [ adult, setAdult ] = useState(state.adult);
+    const [ child, setChild ] = useState(state.child);
 
-    const GuestList = [
+    const guestList = [
         { id: 'adult', name: '성인' },
         { id: 'child', name: '어린이' }
     ];
 
     const IsValueUnderZero = () => {
-        const buttons = $$('.minus');
-        valueList.forEach((value, i) => {
-           if (value <= 0) buttons[i].setAttribute('disabled', true);
+        const buttons = document.querySelectorAll('.minus');
+        const guests = document.querySelectorAll('.guest');
+        guests.forEach((guest, i) => {
+           if (guest.textContent <= 0) buttons[i].setAttribute('disabled', true);
            else buttons[i].removeAttribute('disabled');
         });
     };
 
     const isOnlyChild = () => {
-        if (valueList[1] > 0 && valueList[0] === 0) setValueList[0](valueList[0] + 1);
+        if (child > 0 && adult === 0) setState({ adult: 1, child: 1 });
     };
 
-    const onChangePlusValue = (i) => {
-        return setValueList[i](valueList[i] + 1);
+    const onChangePlusValue = (index) => {
+        if (!index) return setAdult(adult + 1);
+        return setChild(child + 1);
     };
 
-    const onChangeMinusValue = (i) => {
-        return setValueList[i](valueList[i] - 1);
+    const onChangeMinusValue = (index) => {
+        if (!index) return setAdult(adult - 1);
+        return setChild(child - 1);
+    };
+
+    const onChangeGuestValue = () => {
+        setState({ adult, child })
+    };
+
+    const initState = () => {
+        setAdult(state.adult);
+        setChild(state.child);
     };
 
     useEffect(IsValueUnderZero);
     useEffect(isOnlyChild);
+    useEffect(onChangeGuestValue, [ adult, child ]);
+    useEffect(initState, [ state ]);
 
-    const guestFilter = GuestList.map((guest, index) => {
-        const [ value, setValue ] = useState(0);
-
-        valueList.push(value);
-        setValueList.push(setValue);
-
+    const guestFilter = guestList.map((guest, index) => {
         return (
-            <MenuList key={index}>
+            <Guest key={index}>
                 <Key>{guest.name}</Key>
                 <ButtonDiv>
                     <Button className="minus" onClick={() => onChangeMinusValue(index)}>-</Button>
-                    <Value><span id={guest.id}>{value}</span>+</Value>
+                    <Value><span className="guest" id={guest.id}>{ !index ? adult : child }</span>+</Value>
                     <Button onClick={() => onChangePlusValue(index)}>+</Button>
                 </ButtonDiv>
-            </MenuList>
+            </Guest>
         )
     });
 
