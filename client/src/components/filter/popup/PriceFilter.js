@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import { withStyles } from '@material-ui/core/styles';
 import Slider from '@material-ui/core/Slider';
@@ -68,6 +68,10 @@ const PriceInputDiv = styled.div`
     &:focus {
         border: 1px solid #3a8589;
     }
+    
+    &:before {
+        content: '₩';
+    }
 `;
 
 const PriceInput = styled.input.attrs(() => ({
@@ -88,23 +92,32 @@ const Dash = styled.span`
     }
 `;
 
-export default () => {
-    const [ minPrice, setMinPrice ] = useState(50000);
-    const [ maxPrice, setMaxPrice ] = useState(200000);
+export default ({ state, setState }) => {
+    const [ minPrice, setMinPrice ] = useState(state.minPrice);
+    const [ maxPrice, setMaxPrice ] = useState(state.maxPrice);
 
-    const setPriceList = [ setMinPrice, setMaxPrice ];
-
-    const getPriceValue = (value, index) => {
-        setPriceList[index](value);
+    const getPriceValue = (e, value) => {
+        setMinPrice(value[0]);
+        setMaxPrice(value[1]);
+        setState({ minPrice, maxPrice });
     };
 
     const changeMinPrice = e => {
         setMinPrice(Number(e.target.value));
+        setState({ minPrice: Number(e.target.value), maxPrice: maxPrice });
     };
 
     const changeMaxPrice = e => {
         setMaxPrice(Number(e.target.value));
+        setState({ minPrice: minPrice, maxPrice: Number(e.target.value) });
     };
+
+    const initState = () => {
+        setMinPrice(state.minPrice);
+        setMaxPrice(state.maxPrice);
+    };
+
+    useEffect(initState, [ state ]);
 
     return (
         <>
@@ -113,15 +126,15 @@ export default () => {
                 getAriaLabel={index => (index === 0 ? 'Minimum price' : 'Maximum price')}
                 min={10000}
                 max={300000}
-                defaultValue={[ minPrice, maxPrice ]}
-                getAriaValueText={getPriceValue}
+                onChange={getPriceValue}
+                value={[ minPrice, maxPrice ]}
             />
             <PriceInputContainer>
-                <PriceInputDiv> ₩
+                <PriceInputDiv>
                     <PriceInput value={minPrice} onChange={changeMinPrice} />
                 </PriceInputDiv>
                 <Dash />
-                <PriceInputDiv> ₩
+                <PriceInputDiv>
                     <PriceInput value={maxPrice} onChange={changeMaxPrice} />
                 </PriceInputDiv>
             </PriceInputContainer>
