@@ -13,6 +13,46 @@
 </p>
 
 ### 2019 BoostCamp Membership Mission 4
+#### client directory structure
+  ```
+  client
+  ├── 📂 public
+  |   ├── 📄 airbnb-logo.ico
+  |   ├── 📄 index.html
+  |   └── 📄 manifest.json
+  └── 📂 src
+      ├── 📂 components
+      |   ├── 📂 container
+      |   |   ├── 📄 RoomCard.js
+      |   |   └── 📄 Star.js
+      |   ├── 📂 filter
+      |   |   ├── 📂 popup
+      |   |   |   ├── 📄 DateFilter.js
+      |   |   |   ├── 📄 GuestFilter.js
+      |   |   |   ├── 📄 OptionFilter.js
+      |   |   |   ├── 📄 PriceFilter.js
+      |   |   |   └── 📄 TypeFilter.js
+      |   |   ├── 📄 FilterButton.js
+      |   |   ├── 📄 FilterElements.js
+      |   |   └── 📄 FilterPopup.js
+      |   ├── 📂 header
+      |   |   ├── 📄 Navigation.js
+      |   |   ├── 📄 SearchBar.js
+      |   |   └── 📄 SearchIcon.js
+      |   ├── 📄 Container.js
+      |   ├── 📄 Filter.js
+      |   └── 📄 Header.js
+      ├── 📂 img
+      |   └── 📄 airbnb-logo.ico
+      ├── 📂 style
+      |   └── 📄 dateFilter.css
+      ├── 📄 App.js
+      ├── 📄 index.css
+      ├── 📄 index.js
+      ├── 📄 serviceWorker.js
+      └── 📄 setupProxy.js
+  ```
+
 #### server directory structure
   ```
   server
@@ -23,21 +63,21 @@
   ├── 📂 dummy
   |   └── 📄 room-data.js
   ├── 📂 middlewares
-  |   └── 📄 auth.js
-  |   └── 📄 passport.js
-  |   └── 📄 reservation.js
-  |   └── 📄 room.js
+  |   ├── 📄 auth.js
+  |   ├── 📄 passport.js
+  |   ├── 📄 reservation.js
+  |   ├── 📄 room.js
   |   └── 📄 user.js
   ├── 📂 models
-  |   └── 📄 index.js
-  |   └── 📄 reservation.js
-  |   └── 📄 room.js
+  |   ├── 📄 index.js
+  |   ├── 📄 reservation.js
+  |   ├── 📄 room.js
   |   └── 📄 user.js
   ├── 📂 routes
-  |   └── 📄 index.js
-  |   └── 📄 login.js
-  |   └── 📄 logout.js
-  |   └── 📄 reservation.js
+  |   ├── 📄 index.js
+  |   ├── 📄 login.js
+  |   ├── 📄 logout.js
+  |   ├── 📄 reservation.js
   |   └── 📄 room.js
   ├── 📂 seeders
   |   └── 📄 20191016054017-room.js
