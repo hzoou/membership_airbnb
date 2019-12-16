@@ -85,10 +85,10 @@
   ```
 
 #### .env에서 사용하는 환경변수
-> DB_USERNAME=remote
-> DB_PASSWORD=boostcamp2019\
-> DB_DATABASE=airbnb\
-> DB_HOST=127.0.0.1\
+> DB_USERNAME=\
+> DB_PASSWORD=\
+> DB_DATABASE=\
+> DB_HOST=\
 > GOOGLE_CLIENT_ID=\
 > GOOGLE_CLIENT_SECRET=\
 > JWT_SECRET=
@@ -133,15 +133,31 @@
 ### 🏠 [Homepage](https://github.com/hzoou/membership-airbnb#readme)
 
 ## Install
-
+#### server
 ```sh
 cd server
 npm install
+sequelize db:seed:all
+```
+
+
+#### client
+```sh
+cd client
+yarn
 ```
 
 ## Run
 
+#### server
 ```sh
+cd client
+yarn start
+```
+
+#### server
+```sh
+cd server
 npm start
 ```
 
